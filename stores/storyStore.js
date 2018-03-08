@@ -4,6 +4,7 @@ class StoryStore {
   @observable topStoryIds = [];
   @observable stories = [];
   @observable comments = [];
+  @observable pageNum = 1;
 
   getStories(){
     fetch('https://hacker-news.firebaseio.com/v0/topstories.json')
@@ -31,6 +32,18 @@ class StoryStore {
           .then((response) => response.json())
           .then((json) => storyArr.push({'id': json.id, 'title': json.title, 'text': json.text, 'url': json.url, 'commentCount': json.descendants, 'kids': json.kids}))
           .then(() => this.stories = storyArr)
+          .catch((err) => console.log(err));
+    });
+  }
+
+  getMoreStories(){
+    const startNum = this.pageNum * 50;
+    this.pageNum = this.pageNum + 1;
+    const endNum = this.pageNum * 50;
+    this.topStoryIds.slice(startNum, endNum).map((id) => {
+        fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
+          .then((response) => response.json())
+          .then((json) => this.stories.push({'id': json.id, 'title': json.title, 'text': json.text, 'url': json.url, 'commentCount': json.descendants, 'kids': json.kids}))
           .catch((err) => console.log(err));
     });
   }
