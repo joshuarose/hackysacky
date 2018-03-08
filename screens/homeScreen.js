@@ -20,10 +20,8 @@ export default class HomeScreen extends Component {
     } else {
       return (
         <Container>
-          <Content>
-              <Card>
-                { stories.map((story) => <Story key={story.id} story={story} openStory={this.openStory.bind(this)}/>)}
-              </Card>
+          <Content>              
+              { stories.map((story) => <Story key={story.id} story={story} openStory={this.openStory.bind(this)}/>)}
           </Content>
         </Container>
       )
