@@ -18,7 +18,7 @@ export default class Story extends Component {
         </CardItem>
         <CardItem>
           <Left>
-            <Button transparent>
+            <Button transparent onPress={ () => this.props.openComments(story)} >
               <Icon name="logo-hackernews" style={ hackerStyle } />
               <Text style={ hackerStyle }>{ story.commentCount } comments</Text>
             </Button>

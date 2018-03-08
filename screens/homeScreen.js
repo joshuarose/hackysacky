@@ -21,7 +21,9 @@ export default class HomeScreen extends Component {
       return (
         <Container>
           <Content>              
-              { stories.map((story) => <Story key={story.id} story={story} openStory={this.openStory.bind(this)}/>)}
+              { stories.map((story) => <Story key={story.id} story={story} 
+                                              openStory={this.openStory.bind(this)} 
+                                              openComments={this.openComments.bind(this)}/>)}
           </Content>
         </Container>
       )
@@ -44,5 +46,10 @@ export default class HomeScreen extends Component {
     } else {
       navigate('Story', { html: story.text });
     }
+  }
+
+  openComments(story){
+    const { navigate } = this.props.navigation;
+    navigate('Comment', { story: story });
   }
 }
