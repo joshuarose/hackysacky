@@ -17,7 +17,7 @@ class StoryStore {
     this.topStoryIds.slice(0,50).map((id) => {
         fetch(`https://hacker-news.firebaseio.com/v0/item/${id}.json`)
           .then((response) => response.json())
-          .then((json) => storyArr.push({'id': json.id, 'title': json.title, 'text': json.text, 'url': json.url}))
+          .then((json) => storyArr.push({'id': json.id, 'title': json.title, 'text': json.text, 'url': json.url, 'commentCount': json.descendants}))
           .then(() => this.stories = storyArr)
           .catch((err) => console.log(err));
     });
